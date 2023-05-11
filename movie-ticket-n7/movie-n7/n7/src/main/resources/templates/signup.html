@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<head>
+	<meta charset = "UTF-8" />
+	<title> Đăng ký </title>
+</head>
+<body>
+	<section>
+		<div class = "container mt-4">	
+			<div class="row">
+				<div class = "col-md-8 offset-md-2">
+					<div class="my-card mt-4">
+					 
+					 	<div th:if="${session.message}" th:classappend="${session.message.type}" class="alert " role="alert">
+  							<p class = "text-center" th:text = "${session.message.content}"> </p>
+  							<th:blcok th:text = "${#session.removeAttribute('message')}"> </th:blcok>
+						</div>
+					
+					   
+						<h1 class = "text-center"> Đăng ký tại đây</h1>
+						
+						<form  action="" 
+							   th:action="@{/do_register}" 
+							   method="post" 
+							   th:object="${user}"
+					  	>
+						 
+                          <!-- name field-->
+							<div class="mb-3">
+   								
+   								<label for="userName_field" class="form-label">Tên của bạn</label>
+    						 	
+    						 	<input
+    						 	    name = "userName" 
+    						 		type="text" 
+    						 		class="form-control" 
+    						 		id="userName_field" 
+    						 		placeholder="Enter Here"
+    						 		required
+    						 		th:value="${user.userName}" 
+    						 	/>
+    							
+  							</div>
+  							
+  						<!-- name field close-->
+  						
+  						
+                          <!-- Phone field-->
+							
+							<div class="mb-3">
+   								
+   								<label for="phone_field" class="form-label">Số điện thoại</label>
+    						 	
+    						 	<input 
+    						 	    name = "phone" 
+    						 		type="tel" 
+    						 		class="form-control" 
+    						 		id="phone_field" 
+    						 		placeholder="Enter Here"
+    						 		required
+    						 		th:value="${user.phone}"
+    						 	/>
+    							
+  							</div>
+  							
+  						<!-- phone_field close-->
+
+                          <!-- email field-->
+							
+							<div class="mb-3">
+   								
+   								<label for="email_field" class="form-label">Email</label>
+    						 	
+    						 	<input 
+    						 		name = "email" 
+    						 		type="email" 
+    						 		class="form-control" 
+    						 		id="email_field" 
+    						 		aria-describedby="emailHelp"
+    						 		placeholder="Enter Here"
+    						 		required
+    						 		th:value="${user.email}"
+    						 	/>
+    							
+  							</div>
+  							
+  						<!-- email field close-->
+  						
+                          <!-- password field-->
+							
+							<div class="mb-3">
+   								
+   								<label for="password_field" class="form-label">Mật khẩu</label>
+    						 	
+    						 	<input 
+    						 		name = "password"
+    						 		type="password" 
+    						 		class="form-control" 
+    						 		id="password_field" 
+    						 		aria-describedby="passwordHelpInline"
+    						 		placeholder="Nhập tại đây"
+    						 		required
+    						 	/>
+    							
+  							</div>
+  							
+  						<!-- password field close-->
+  						
+  						
+  						<!-- about field-->
+  							<div class="mb-3">
+							  <label for="exampleFormControlTextarea1" class="form-label">Giới thiệu</label>
+  							  <textarea name = "about"  th:text="${user.about}"  placeholder = "Enter something yourself" class="form-control"  rows="3"></textarea>
+							</div>
+  						
+  						<!-- about field close-->
+
+
+  							<div class="container text-center">
+  								
+  								<button type = "submit" class="btn bg-primary text-white">
+  									Đăng ký
+  								</button>
+  								
+  								<button type = "reset" class="btn bg-warning ">
+  									Làm mới
+  								</button>
+  								
+  							</div>
+  							
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</section>
+</body>
+</html>

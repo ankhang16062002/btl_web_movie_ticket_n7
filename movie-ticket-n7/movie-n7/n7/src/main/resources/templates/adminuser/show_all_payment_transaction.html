@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="adminuser/base::layout(~{::section})">
+
+<head>
+	<meta charset = "UTF-8" />
+</head>
+<body>
+	<section>	
+			<div class="card ms-3 me-3">
+				
+				<div class="card-body">
+					
+					<h1 class="text-center"> Tất cả các yêu cầu mua vé </h1>
+					
+						 <table class="table mt-3">
+  							<thead>
+    							<tr>
+	    							<th scope="col">ID Vé</th>
+      								<th scope="col">Tên vé</th>
+      								<th scope="col">Ngày chiếu</th>
+      								<th scope="col">Ticket Price</th>
+      								<th scope="col">Gía vé</th>					
+      								<th scope="col">Số tiền phải trả</th>
+      								<th scope="col">Tên user</th>
+      								<th scope="col">Email</th>
+      								<th scope="col">Số giao dịch</th>
+      						      	<th scope="col">Số dt</th>
+      						      	<th scope="col">Trạng thái</th>
+      						      	
+    							</tr>
+  							</thead>
+  						<tbody>
+    						<tr th:each="c : ${purchaseList} ">
+    						
+      							<td th:text="${c.getPurchaseId()}"></td>      							
+      							<td th:text="${c.getMovieticket().getMovieName()}"></td>	
+      							<td th:text="${c.getMovieticket().getDate()}"></td>					
+      							<td th:text="${c.getMovieticket().getTicketPrize()}"></td>
+      							<td th:text="${c.getQuantity()}"></td>
+      							<td th:text="${c.getMovieticket().getTicketPrize() * c.getQuantity()}"></td>
+      							<td th:text="${c.getUser.getUserName}"></td>
+      							<td th:text="${c.getUser.getEmail}"></td>
+      						    <td th:text="${c.getTransactionId()}"></td>
+      						    <td th:text="${c.getTransactionNumber()}"></td>
+								<td th:switch="${c.getPaymentStatus()}"> 
+									  <span th:case="0" style="background-color:yellow">Chưa xử lý</span>
+									  <span th:case="1" style="background-color:green">Đã xác nhận</span>
+									  <span th:case="2" style="background-color:red">Đã hủy</span> 
+								</td>	
+   							</tr>
+  						</tbody>
+					</table>
+					
+					<!--Pagination-->
+					
+					<nav aria-label="Page navigation example">
+					
+						  <ul th:if="${totalPages != 0}" class="pagination">
+							    <li th:if="${currentPage != 0}" class="page-item">
+							    <a th:href="@{'/admin/show-all-payment-transaction/'+${currentPage-1}}"  class="page-link" href="#">Trước</a></li>
+							    
+							    <li th:classappend="${currentPage==iter-1?'active':''}"
+							    th:each="iter : ${#numbers.sequence(1,totalPages)}" 
+							    class="page-item">
+							    
+							    <a th:href="@{'/admin/show-all-payment-transaction/'+${iter-1}}" class="page-link" href="#"> 
+							    <span th:text="${iter}"> </span>
+							    </a></li>
+							    
+							    <li th:if="${currentPage+1 != totalPages}" class="page-item">
+							    <a th:href="@{'/admin/show-all-payment-transaction/'+${currentPage+1}}" class="page-link" href="#">Sau</a></li>
+							</ul>	
+					</nav>
+				</div>
+			</div>
+	</section>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="adminuser/base::layout(~{::section})">
+
+<head>
+	<meta charset = "UTF-8" />
+	<title> This is My watch list page </title>
+</head>
+<body>
+	<section>	
+			<div class="card ms-3 me-3">
+				
+				<div class="card-body">
+					
+					<h1 class="text-center"> Xác thực đặt vé </h1>
+					
+						 <table class="table mt-3">
+  							<thead>
+    							<tr>
+	    							<th scope="col">ID vé</th>
+      								<th scope="col">Tên phim</th>
+      								<th scope="col">Gía vé</th>
+      								<th scope="col">Chỗ đã mua</th>					
+      								<th scope="col">Tổng tiền</th>
+      								<th scope="col">Tên user</th>
+      								<th scope="col">Email</th>
+      								<th scope="col">Số giao dịch</th>
+      						      	<th scope="col">Số dt</th>
+      						      	<th scope="col">Hành động</th>
+      						      	
+    							</tr>
+  							</thead>
+  						<tbody>
+    						<tr th:each="c : ${purchaseList} ">
+    						
+      							<td th:text="${c.getPurchaseId()}"></td>      							
+      							<td th:text="${c.getMovieticket().getMovieName()}"></td>					
+      							<td th:text="${c.getMovieticket().getTicketPrize()}"></td>
+      							<td th:text="${c.getQuantity()}"></td>
+      							<td th:text="${c.getMovieticket().getTicketPrize() * c.getQuantity()}"></td>
+      							<td th:text="${c.getUser.getUserName}"></td>
+      							<td th:text="${c.getUser.getEmail}"></td>
+      						    <td th:text="${c.getTransactionId()}"></td>
+      						    <td th:text="${c.getTransactionNumber()}"></td>
+	
+      							<td>      	
+									  <!-- acyion value = 1-->
+      								<a href="#" th:name="action" th:value="1" th:href="@{'/admin/update-payment-status/'+${c.getPurchaseId()} (actionValue=${1}) }">
+      									
+    	  								<button class="btn btn-primary btn-sm"> Chấp nhận </button>
+      								</a> 
+      								
+      								<!-- acyion value = 2-->
+      								<a href="#" th:name="action" th:value="1" th:href="@{'/admin/update-payment-status/'+${c.getPurchaseId()} (actionValue=${2}) }">
+      							
+    	  								<button class="btn btn-danger btn-sm"> Từ chối </button>
+      								</a>			
+
+      							</td>
+   							</tr>
+  						</tbody>
+					</table>
+					
+					<!--Pagination-->
+					
+					<nav aria-label="Page navigation example">
+					
+						  <ul th:if="${totalPages != 0}" class="pagination">
+							    <li th:if="${currentPage != 0}" class="page-item">
+							    <a th:href="@{'/admin/show-payment-transaction/'+${currentPage-1}}"  class="page-link" href="#">Trước</a></li>
+							    
+							    <li th:classappend="${currentPage==iter-1?'active':''}"
+							    th:each="iter : ${#numbers.sequence(1,totalPages)}" 
+							    class="page-item">
+							    
+							    <a th:href="@{'/admin/show-payment-transaction/'+${iter-1}}" class="page-link" href="#"> 
+							    <span th:text="${iter}"> </span>
+							    </a></li>
+							    
+							    <li th:if="${currentPage+1 != totalPages}" class="page-item">
+							    <a th:href="@{'/admin/show-payment-transaction/'+${currentPage+1}}" class="page-link" href="#">Sau</a></li>
+							</ul>	
+					</nav>
+				</div>
+			</div>
+	</section>
+</body>
+</html>

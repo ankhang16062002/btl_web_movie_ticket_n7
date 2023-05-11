@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="adminuser/base::layout(~{::section})">
+
+<head>
+	<meta charset = "UTF-8" />
+</head>
+<body>
+	<section>
+		<div class="card me-3 ms-3">
+			<div class="card-body">
+				
+				<h1 class="text-center"> Tải lên phim</h1>
+				
+				<div class="container-fluid m1-1">
+				
+				<div class="row">
+					
+					<div class="col-md-10 offset-md-1">
+						
+						<form action="#" 
+							th:object="${movieticket}"
+							enctype="multipart/form-data"
+							method="POST"
+							th:action="@{/admin/process-uploaded-movie}"
+						>
+						
+						
+						
+						<!--Movie Name-->
+						
+						<div class="input-group mb-3">
+							
+						
+							<input
+								name="movieName"
+      							type="text" 
+      							class="form-control" 
+      							id="movie_name_field" 
+      							placeholder="Nhập tên phim tại đây"
+      							required
+      						/>
+      						
+						</div>
+						
+						<!--Movie Genre-->
+						
+						<div class="input-group mb-3">
+							
+							<input
+								name="genre"
+      							type="text" 
+      							class="form-control" 
+      							id="movie_genre_field" 
+      							placeholder="Thể loại"
+      							required
+      						/>
+      						
+						</div>
+						
+						
+						
+						<!--Movie Ticket Prize-->
+						
+						<div class="input-group mb-3">
+							
+							<input
+								name="ticketPrize"
+      							type="text" 
+      							class="form-control" 
+      							id="movie_ticketPrize_field" 
+      							placeholder="Gía vé"
+      							required
+      						/>
+      						
+						</div>
+						
+						
+						<!--Start Date-->
+						
+						<div class="input-group mb-3">
+							
+							<input
+								name="date"
+      							type="date" 
+      							class="form-control" 
+      							id="movie_date_field" 
+      							placeholder="Ngày chiếu"
+      							required
+      						>
+      						
+						</div>
+						
+						<!--Start Time-->
+						
+						<div class="input-group mb-3">
+							
+							<input
+								name="startTime"
+      							type="time" 
+      							class="form-control" 
+      							id="movie_startTime_field" 
+      							placeholder="hh:mm"
+      							required
+      						>
+      						
+						</div>
+						
+						
+						<!--Movie Seat-->
+						
+						<div class="input-group mb-3">
+	
+							<input
+								name="totalSeat"
+      							type="text" 
+      							class="form-control" 
+      							id="movie_totalSeat_field" 
+      							placeholder="Số ghế xem phim"
+      							required
+      						>
+      						
+						</div>
+						
+						<!--Image Field-->
+						<div class="custom-file">
+							<input 
+								type="file" 
+								name="movieImageUrl"
+							/>
+						
+						</div>
+						
+						<div class="container text-center mb-3">
+							
+							<button class="btn btn-outline-primary"> Tải lên </button>
+							
+						</div>
+						
+					
+					</div>
+				</div>
+			
+			</div>
+		</div>
+	</section>
+</body>
+</html>

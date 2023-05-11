@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="normaluser/base::layout(~{::section})">
+
+<head>
+	<meta charset = "UTF-8" />
+</head>
+<body>
+	<section>	
+			<div class="card ms-3 me-3">
+				
+				<div class="card-body">
+					
+					<h1 class="text-center"> Danh sách phim </h1>
+					<!--search-->
+						
+						<div class="search-container my-4">
+							
+							<input
+								onkeyup="searchByMovieNameUser()"
+								id="searchInput"
+								type="text"
+								class="form-control"
+								placeholder="Tìm kiếm phim"
+							/> 
+							
+							<div class="search-result">
+								
+									<h1>Kết quả tìm kiếm </h1>	
+								
+							</div>
+						
+						</div>
+						
+						 <!--search end-->
+					
+						 <table class="table">
+  							<thead>
+    							<tr>
+    								<th scope="col"></th>
+      								<th scope="col">Tên</th>
+      								<th scope="col">Thể loại</th>
+      								<th scope="col">Ngày chiếu</th>
+      								<th scope="col">Thời gian</th>
+      						      	<th scope="col">Gía vé</th>
+      						      	<th scope="col">Số ghế còn lại</th>
+      						      	<th scope="col">Hành động</th>
+      						      	
+    							</tr>
+  							</thead>
+  						<tbody>
+    						<tr th:each="c : ${movietickets} ">
+    						
+	    						<td> 
+    								<img scr="" class="my_movie_poster" th:src="@{'/img/'+${c.movieImage}}" alt="movie poster" />
+    								
+    							</td>
+      							<td th:text="${c.movieName}"></td>
+      							<td th:text="${c.genre}"></td>
+      							<td th:text="${c.date}"></td>
+      							<td th:text="${c.startTime}"></td>
+      							<td th:text="${c.ticketPrize}"></td>
+      							<td th:text="${c.seatRemaining}"></td>
+      							<td>
+      								<a href="#" th:href="@{'/user/buy-movie-ticket/'+${c.movieId}}">
+    	  								<button class="btn btn-primary btn-sm"> Mua vé </button>
+      								</a>  								
+      							</td>
+      							
+   							</tr>
+    						
+  						</tbody>
+					</table>
+					
+					<!--Pagination-->
+					
+					<nav aria-label="Page navigation example">
+					
+						  <ul th:if="${totalPages != 0}" class="pagination">
+							    <li th:if="${currentPage != 0}" class="page-item">
+							    <a th:href="@{'/user/show-upcoming-movie/'+${currentPage-1}}"  class="page-link" href="#">Trước</a></li>
+							    
+							    <li th:classappend="${currentPage==iter-1?'active':''}"
+							    th:each="iter : ${#numbers.sequence(1,totalPages)}" 
+							    class="page-item">
+							    
+							    <a th:href="@{'/user/show-upcoming-movie/'+${iter-1}}" class="page-link" href="#"> 
+							    <span th:text="${iter}"> </span>
+							    </a></li>
+							    
+							    <li th:if="${currentPage+1 != totalPages}" class="page-item">
+							    <a th:href="@{'/user/show-upcoming-movie/'+${currentPage+1}}" class="page-link" href="#">Sau</a></li>
+							</ul>
+					
+					</nav>
+				</div>
+				
+			</div>
+	</section>
+</body>
+</html>
